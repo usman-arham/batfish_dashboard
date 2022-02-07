@@ -180,8 +180,10 @@ main_page_layout = html.Div(
                                 ),
                             ],
                         ),
-                        html.Div(
-                            id="main-page-tabs-content",
+                        dcc.Loading(
+                            id="loading-1",
+                            type="default",
+                            children=html.Div(id="main-page-tabs-content"),
                         ),
                     ],
                 ),
@@ -424,8 +426,14 @@ main_page_layout = html.Div(
                                         margin_top="10px",
                                     ),
                                 ),
-                                html.Div(id="question-info"),
-                                html.Div(id="ask-a-question-table"),
+                                dcc.Loading(
+                                    id="loading-2",
+                                    type="default",
+                                    children=[
+                                        html.Div(id="question-info"),
+                                        html.Div(id="ask-a-question-table"),
+                                    ],
+                                ),
                             ],
                         ),
                     ],
