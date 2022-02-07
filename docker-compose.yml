@@ -1,0 +1,11 @@
+version: '3'
+services:
+    cms-portal:
+        environment:
+            - TZ=Asia/Riyadh
+        ports:
+            - "8050:8050"
+        container_name: batfish_dashboard
+        image: batfish_dashboard
+        volumes:
+            - ./:/app:z

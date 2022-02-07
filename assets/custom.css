@@ -1,24 +1,24 @@
-
 body {
   background-color: ghostwhite;
 }
+
 #main-page {
-    background-color: ghostwhite;
-    /*height: 850px;*/
-    /*width: 1730px;*/
-    height: 100%;
-    width: auto;
+  background-color: ghostwhite;
+  /*height: 850px;*/
+  /*width: 1730px;*/
+  height: 100%;
+  width: auto;
 }
 
 
 #cytoscape {
   background-color: #ffffff;
   border: 1px solid;
-  border-color: #555555;
+  border-color: #3c8dbc;
   box-shadow: 0 0.5rem 0.8rem #00000080;
   resize: both;
   overflow: auto;
-  border-radius:3px
+  border-radius: 3px
 }
 
 
@@ -33,32 +33,33 @@ body {
   vertical-align: middle;
 }
 
-.main_page_dropdown{
+.main_page_dropdown {
   width: 200px;
   margin: 5px;
 }
+
 .main_page_button {
   margin: 5px;
-  border-radius:3px;
+  border-radius: 3px;
   background-color: ghostwhite;
-  color: #555555;
+  color: #3c8dbc;
 }
 
 .main_page_button:hover {
   color: ghostwhite;
-  background-color: #555555;
+  background-color: #3c8dbc;
 }
 
-#set_batfish_host_submit_button{
-  border-color: #555555;
-  color: #555555;
+#set_batfish_host_submit_button {
+  border-color: #3c8dbc;
+  color: #3c8dbc;
   background-color: ghostwhite;
   border-radius: 3px;
 }
 
-#set_batfish_host_submit_button:hover{
+#set_batfish_host_submit_button:hover {
   color: white;
-  background-color: #555555;
+  background-color: #3c8dbc;
 }
 
 .main_page_card {
@@ -68,15 +69,17 @@ body {
 }
 
 #title-bar-div {
-    margin: 0;
+  margin: 0;
 }
 
-#title-bar{
+#title-bar {
   height: 40px;
-  background-color: #555555;
+  background-color: #3c8dbc;
+  position: relative;
+  z-index: 1030;
 }
 
-#title-bar-text{
+#title-bar-text {
   letter-spacing: 0.1em;
   color: ghostwhite;
   position: absolute;
@@ -88,17 +91,18 @@ body {
 }
 
 
-#main-page-tabs{
+#main-page-tabs {
   width: 1000px;
 }
+
 .main-page-graph-tab {
   cursor: pointer;
-  padding:10px 20px;
-  margin:0px 2px;
-  background:#000;
-  display:inline-block;
-  color:#555555;
-  border-radius:3px 3px 0px 0px;
+  padding: 10px 20px;
+  margin: 0px 2px;
+  background: #000;
+  display: inline-block;
+  color: #3c8dbc;
+  border-radius: 3px 3px 0px 0px;
   box-shadow: 0 0.5rem 0.8rem #00000080;
   width: 200px;
   font-weight: bold;
@@ -113,24 +117,24 @@ body {
 
 #create_network_submit_button {
   height: 25px;
-  border-color: #555555;
-  color: #555555;
+  border-color: #3c8dbc;
+  color: #3c8dbc;
 }
 
-#create_network_submit_button:hover{
+#create_network_submit_button:hover {
   color: white;
-  background-color: #555555;
+  background-color: #3c8dbc;
 }
 
 #delete_network_submit_button {
   height: 25px;
-  border-color: #555555;
-  color: #555555;
+  border-color: #3c8dbc;
+  color: #3c8dbc;
 }
 
-#delete_network_submit_button:hover{
+#delete_network_submit_button:hover {
   color: white;
-  background-color: #555555;
+  background-color: #3c8dbc;
 }
 
 #create-network-form {
@@ -148,8 +152,8 @@ body {
 
 
 
-.modal-header{
-  background-color: #555555;
+.modal-header {
+  background-color: #3c8dbc;
 }
 
 .modal-title {
@@ -164,7 +168,7 @@ body {
   background-color: ghostwhite;
 }
 
-.Snapshot_Upload{
+.Snapshot_Upload {
   margin: 10px;
   text-align: center;
   border-radius: 3px;
@@ -186,8 +190,8 @@ body {
 
 
 #ask-a-question-modal {
-    height: 800px;
-    width: 5000px;
+  height: 800px;
+  width: 5000px;
 }
 
 /*Main Page Traceroute*/
@@ -197,12 +201,12 @@ body {
 
   resize: both;
   overflow: auto;
-  border-color: #555555;
+  border-color: #3c8dbc;
   /*box-shadow: 0 0.5rem 0.8rem #00000080;*/
-  border-radius:3px
+  border-radius: 3px
 }
 
-details > summary {
+details>summary {
   padding: 2px 6px;
   width: 15em;
   background-color: #ffffff;
@@ -216,11 +220,12 @@ details > summary {
 
 }
 
-.main_page_traceroute_flow_details{
+.main_page_traceroute_flow_details {
   position: static;
   display: inline-block;
   vertical-align: top;
 }
+
 #trace-tree {
   position: static;
   display: inline-block;
@@ -230,7 +235,7 @@ details > summary {
 
 
 .trace_steps {
-    width: 75px;
+  width: 75px;
 }
 
 .bidir_switch {
@@ -247,23 +252,27 @@ details > summary {
 
 }
 
-.custom-select > option {
+.custom-select>option {
   font-size: 16px;
 }
+
 .custom-select {
   height: 40px;
   font-size: 16px;
 }
+
 .input-group-text {
   font-size: 12px;
 }
+
 legend {
   font-weight: bold;
-  color: #555555;
+  color: #3c8dbc;
 }
+
 fieldset {
   border: 1px solid;
-  border-color: #555555;
+  border-color: #3c8dbc;
 
 }
 
@@ -274,19 +283,19 @@ fieldset {
 }
 
 
-#traceroute_dst > div > div {
+#traceroute_dst>div>div {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px
-
 }
 
-#traceroute_dst_type_dropdown > div > div {
+#traceroute_dst_type_dropdown>div>div {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   /*color: ghostwhite;*/
   background-color: #E9ECEF;
   font-size: 12px;
 }
+
 /*#react-select-8--value-item {*/
 /*  color: ghostwhite;*/
 /*  font-size: 12px;*/
@@ -305,10 +314,9 @@ fieldset {
 }
 
 
-#traceroute_src_interface > div > div {
+#traceroute_src_interface>div>div {
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px
-
 }
 
 .traceroute_dst_input {
@@ -319,10 +327,11 @@ fieldset {
 
 
 fieldset {
-  border:none;
+  border: none;
 
 }
-fieldset > legend {
+
+fieldset>legend {
   text-align: center;
   width: auto;
 }
@@ -368,39 +377,39 @@ fieldset > legend {
 
 
 #acl_content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 
 }
 
 #acl_original_fieldset {
-    border: 1px solid;
-    width: 500px;
-    height: 600px;
+  border: 1px solid;
+  width: 500px;
+  height: 600px;
 }
 
 #acl_result_fieldset {
-    border: none;
-    width: auto;
-    height: auto;
+  border: none;
+  width: auto;
+  height: auto;
 }
 
 #acl_refractored_fieldset {
-    border: 1px solid;
-    width: 500px;
-    height: 600px;
+  border: 1px solid;
+  width: 500px;
+  height: 600px;
 }
 
 #acl_original_input_group {
-    position: relative;
-    display: flex;
-    align-items: stretch;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-evenly;
-    padding: 10px;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
 
 }
 
