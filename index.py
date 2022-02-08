@@ -7,16 +7,35 @@ import callbacks
 
 app.title = "Dashboard"
 app.layout = main_page_layout
+app.index_string = """
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        {%favicon%}
+        {%css%}
+    </head>
+    <body class="sidebar-mini skin-purple-light">
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+"""
 
 
-external_css = [
-    "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-]
+# external_css = [
+#     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+# ]
 
-for css in external_css:
-    app.css.append_css({"external_url": css})
+# for css in external_css:
+#     app.css.append_css({"external_url": css})
 
-external_js = ["https://code.jquery.com/jquery-3.2.1.min.js"]
+# external_js = ["https://code.jquery.com/jquery-3.2.1.min.js"]
 
 
 if __name__ == "__main__":
