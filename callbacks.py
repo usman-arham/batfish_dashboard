@@ -16,6 +16,7 @@ from components.functions import delete_old_files
 from components.functions import get_traceroute_details
 from components.functions import get_layer3_graph
 from components.functions import get_ospf_graph
+from components.functions import get_isis_graph
 from components.functions import get_bgp_graph
 from components.functions import get_traceroute_content
 from components.functions import get_acl_content
@@ -624,6 +625,7 @@ def set_update_tab_content(content_type, snapshot_value, host_value, network_val
     tab_content = {
         "layer3": get_layer3_graph(batfish.get_layer3_edges),
         "ospf": get_ospf_graph(batfish.get_ospf_edges),
+        "isis": get_isis_graph(batfish.get_isis_edges),
         "bgp": get_bgp_graph(batfish.get_bgp_edges),
         "traceroute": get_traceroute_content(batfish.get_interfaces),
         "all_things_acl": get_acl_content(),

@@ -58,6 +58,10 @@ class Batfish():
     def get_ospf_edges(self):
         result = bfq.ospfEdges().answer().frame()
         return result
+    @property
+    def get_isis_edges(self):
+        result = bfq.isisEdges().answer().frame()
+        return result
 
     @property
     def get_bgp_edges(self):

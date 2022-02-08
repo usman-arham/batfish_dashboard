@@ -528,6 +528,10 @@ def get_ospf_graph(batfish_df):
     return create_graph(
         getnodes(batfish_df) + getedges(batfish_df))
 
+def get_isis_graph(batfish_df):
+    return create_graph(
+        getnodes(batfish_df) + getedges(batfish_df))
+
 def get_bgp_graph(batfish_df):
     return create_graph(getparents(batfish_df) + get_bgp_nodes(
         batfish_df) + get_bgp_edges(batfish_df))
