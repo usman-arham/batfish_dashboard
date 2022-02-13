@@ -63,6 +63,11 @@ class Batfish:
         result = bfq.bgpEdges().answer().frame()
         return result
 
+    @property
+    def get_isis_edges(self):
+        result = bfq.isisEdges().answer().frame()
+        return result
+
     def get_existing_snapshots(self):
         try:
             snapshotlist = bf_list_snapshots()

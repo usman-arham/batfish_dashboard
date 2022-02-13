@@ -6,9 +6,8 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from app import app
 from components.batfish import Batfish
-from components.functions import get_layer3_graph
-from components.functions import get_ospf_graph
-from components.functions import get_bgp_graph
+from components.functions import get_isis_graph
+
 
 layout = dcc.Loading(
     id="loading-1",
@@ -114,7 +113,7 @@ def set_update_tab_content(snapshot_value, host_value, network_value):
     batfish = Batfish(host_value)
     batfish.set_network(network_value)
     batfish.set_snapshot(snapshot_value)
-    return get_layer3_graph(batfish.get_layer3_edges)
+    return get_isis_graph(batfish.get_isis_edges)
 
 
 @app.callback(
