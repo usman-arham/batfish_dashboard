@@ -7,7 +7,7 @@ chardet==3.0.4
 click==7.1.1
 ConfigArgParse==0.15.2
 dash==1.14.0
-dash-bootstrap-components==0.10.3
+dash-bootstrap-components
 dash-core-components==1.10.2
 dash-cytoscape==0.2.0
 dash-daq==0.5.0
@@ -29,10 +29,10 @@ MarkupSafe==1.1.1
 netconan==0.11.1
 numpy==1.18.3
 ordered-set==3.1.1
-pandas==1.0.3
+pandas
 passlib==1.7.2
 plotly==4.8.0
-pybatfish==2020.4.23.480
+pybatfish
 python-dateutil==2.8.1
 pytz==2019.3
 PyYAML==5.4

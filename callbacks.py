@@ -123,102 +123,6 @@ def set_batfish_host(value, n):
     return value
 
 
-###################### Delete Network ###############################
-@app.callback(
-    Output("delete-success", "children"),
-    [
-        Input("delete_network_submit_button", "n_clicks"),
-        Input("delete_network_dropdown", "value"),
-    ],
-    [State("batfish_host_input", "value")],
-)
-def delete_network(submit, delete_network, batfish_host):
-    ctx = dash.callback_context
-    button_id = ctx.triggered[0]["prop_id"].split(".")[0]
-
-    if button_id != "delete_network_submit_button":
-        raise PreventUpdate
-    batfish = Batfish(batfish_host)
-    batfish.delete_network(delete_network)
-
-
-@app.callback(
-    [
-        Output("select-network-snapshot-modal", "children"),
-        Output("select-network-div", "children"),
-        Output("create-network-collapse", "children"),
-    ],
-    [
-        Input("batfish_host_input", "value"),
-    ],
-    [
-        State("batfish_host_input", "value"),
-    ],
-)
-def get_batfish_networks(n, value):
-    ctx = dash.callback_context
-
-    batfish = Batfish(value)
-    options = [
-        {"label": network, "value": network}
-        for network in batfish.get_existing_networks
-    ]
-    dropdown1 = dcc.Dropdown(
-        id="select-network-button",
-        placeholder="Select a Network",
-        className="main_page_dropdown",
-        options=options,
-        value=None,
-    )
-    dropdown2 = dcc.Dropdown(
-        id="modal-select-network-button",
-        placeholder="Select a Network",
-        style={
-            "margin": "5px",
-            "width": "150px",
-        },
-        options=options,
-        value=None,
-    )
-    create_delete_network_children = [
-        dbc.Form(
-            [
-                dbc.FormGroup(
-                    [
-                        dbc.Input(
-                            id="create-network-form",
-                            value="",
-                            placeholder="New Network Name",
-                        ),
-                    ],
-                    className="mr-3",
-                ),
-                dbc.Button(
-                    "Submit",
-                    id="create_network_submit_button",
-                    color="dark",
-                    outline=True,
-                    size="sm",
-                ),
-                dcc.Dropdown(
-                    id="delete_network_dropdown",
-                    placeholder="Select a Network",
-                    options=options,
-                    value=None,
-                ),
-                dbc.Button(
-                    "Delete",
-                    id="delete_network_submit_button",
-                    color="dark",
-                    outline=True,
-                    size="sm",
-                ),
-                html.H1(id="delete-success", style={"display": "none"}),
-            ],
-            inline=True,
-        )
-    ]
-    return dropdown2, dropdown1, create_delete_network_children
 
 
 @app.callback(
@@ -228,29 +132,7 @@ def test(value):
     return value
 
 
-@app.callback(
-    Output("select-snapshot-div", "children"),
-    [Input("batfish_host_input", "value"), Input("select-network-button", "value")],
-)
-def set_batfish_snapshot(host_value, network_value):
-    if not network_value:
-        raise PreventUpdate
-    batfish = Batfish(host_value)
-    batfish.set_network(network_value)
-    options = [
-        {"label": snapshot, "value": snapshot}
-        for snapshot in batfish.get_existing_snapshots()
-    ]
-    dropdown = (
-        dcc.Dropdown(
-            id="select-snapshot-button",
-            placeholder="Select Snapshot",
-            className="main_page_dropdown",
-            options=options,
-            value=None,
-        ),
-    )
-    return dropdown
+
 
 
 @app.callback(
@@ -609,11 +491,15 @@ def ask_a_question_modal_table(question, host_value, network_value, snapshot_val
 
 
 @app.callback(
-    Output("main-page-tabs-content", "children"),
-    [Input("main-page-tabs", "value"), Input("select-snapshot-button", "value")],
+    [
+        Output("l3_topology", "children"),
+        Output("ospf_topology", "children"),
+        Output("bgp_topology", "children"),
+    ],
+    [Input("select-snapshot-button", "value")],
     [State("batfish_host_input", "value"), State("select-network-button", "value")],
 )
-def set_update_tab_content(content_type, snapshot_value, host_value, network_value):
+def set_update_tab_content(snapshot_value, host_value, network_value):
     if not snapshot_value:
         raise PreventUpdate
     # time.sleep(0.10)
@@ -628,7 +514,7 @@ def set_update_tab_content(content_type, snapshot_value, host_value, network_val
         "traceroute": get_traceroute_content(batfish.get_interfaces),
         "all_things_acl": get_acl_content(),
     }
-    return tab_content.get(content_type)
+    return tab_content.get("layer3"), tab_content.get("ospf"), tab_content.get("bgp")
 
 
 ############################ Trace Route ##############################
@@ -963,7 +849,7 @@ def get_chaos_form(n, graph_elements, batfish_host, batfish_network, original_sn
 )
 def display_interfaces_for_node(
     choose_node, batfish_host, batfish_network, original_snapshot
-):
+    ):
     ctx = dash.callback_context
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
 
@@ -1027,7 +913,7 @@ def set_chaos_trace_graph(
     host_value,
     network_value,
     snapshot_value,
-):
+    ):
     ctx = dash.callback_context
     button_id = ctx.triggered[0]["prop_id"].split(".")[0]
     deactivated_nodes = []

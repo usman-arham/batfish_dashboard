@@ -2,21 +2,25 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 from app import app
-from layouts import main_page_layout
-import callbacks
+from pages import index, l3vpn, questions, trace, ospf, bgp, isis
 
 app.title = "Dashboard"
-app.layout = main_page_layout
 app.index_string = """
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         {%metas%}
         <title>{%title%}</title>
         {%favicon%}
         {%css%}
+        <!-- Google Font -->
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
-    <body class="sidebar-mini skin-purple-light">
+    <body class="fixed sidebar-mini skin-blue-light">
         {%app_entry%}
         <footer>
             {%config%}
@@ -26,16 +30,25 @@ app.index_string = """
     </body>
 </html>
 """
+app.layout = index.layout
 
 
-# external_css = [
-#     "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-# ]
-
-# for css in external_css:
-#     app.css.append_css({"external_url": css})
-
-# external_js = ["https://code.jquery.com/jquery-3.2.1.min.js"]
+@app.callback(Output("page-content", "children"), [Input("url", "pathname")])
+def display_page(pathname):
+    if pathname == None or pathname == "/":
+        return l3vpn.layout
+    elif pathname == "/questions":
+        return questions.layout
+    elif pathname == "/ospf":
+        return ospf.layout
+    elif pathname == "/bgp":
+        return bgp.layout
+    elif pathname == "/isis":
+        return isis.layout
+    elif pathname == "/trace":
+        return trace.layout
+    else:
+        return dashboard.layout
 
 
 if __name__ == "__main__":

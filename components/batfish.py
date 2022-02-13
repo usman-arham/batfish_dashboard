@@ -13,16 +13,15 @@ from pybatfish.question import bfq
 from pybatfish.question import load_questions, list_questions
 from pybatfish.datamodel import HeaderConstraints, Interface
 
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-pd.set_option('display.width', None)
-pd.set_option('display.max_colwidth', -1)
+pd.set_option("display.max_rows", None)
+pd.set_option("display.max_columns", None)
+pd.set_option("display.width", None)
+pd.set_option("display.max_colwidth", None)
 
-pd.options.display.float_format = '{:,}'.format
+pd.options.display.float_format = "{:,}".format
 
 
-class Batfish():
-
+class Batfish:
     def __init__(self, batfish_host):
         self.batfish_host = batfish_host
         bf_session.host = batfish_host
@@ -73,83 +72,105 @@ class Batfish():
 
     def init_snapshot(self, snapshot_name, overwrite=True):
         snapshot_dir = "assets/snapshot_holder/"
-        bf_init_snapshot(snapshot_dir, name=str(snapshot_name),
-                         overwrite=overwrite)
+        bf_init_snapshot(snapshot_dir, name=str(snapshot_name), overwrite=overwrite)
 
     def get_info(self, command):
-        execute = 'bfq.' + command + '().answer().frame()'
+        execute = "bfq." + command + "().answer().frame()"
         result = eval(execute)
         return result
 
-
-
-    def traceroute(self, src, dstIps, bidir,snapshot,
-                   srcPorts=None,
-                   dstPorts =None,
-                   applications=None,
-                   ipProtocols=None,
-                   ):
-        headers = HeaderConstraints(dstIps =dstIps,
-                                    srcPorts=srcPorts,
-                                    dstPorts =dstPorts,
-                                    applications=applications,
-                                    ipProtocols=ipProtocols)
+    def traceroute(
+        self,
+        src,
+        dstIps,
+        bidir,
+        snapshot,
+        srcPorts=None,
+        dstPorts=None,
+        applications=None,
+        ipProtocols=None,
+    ):
+        headers = HeaderConstraints(
+            dstIps=dstIps,
+            srcPorts=srcPorts,
+            dstPorts=dstPorts,
+            applications=applications,
+            ipProtocols=ipProtocols,
+        )
         if bidir:
-            result = bfq.bidirectionalTraceroute(startLocation=src,
-                                                 headers=headers)\
-                .answer(snapshot=snapshot)\
+            result = (
+                bfq.bidirectionalTraceroute(startLocation=src, headers=headers)
+                .answer(snapshot=snapshot)
                 .frame()
+            )
         else:
 
-            result = bfq.traceroute(startLocation=src,
-                                    headers=headers)\
-                .answer(snapshot=snapshot)\
+            result = (
+                bfq.traceroute(startLocation=src, headers=headers)
+                .answer(snapshot=snapshot)
                 .frame()
+            )
         return result
 
     def get_configuration(self, file_name, snapshot):
         return bf_get_snapshot_input_object_text(file_name, snapshot=snapshot)
 
-    def network_failure(self,
-                        base_snapshot,
-                        reference_snapshot,
-                        deactivate_node,
-                        deactivated_int,
-                        overwrite=True):
+    def network_failure(
+        self,
+        base_snapshot,
+        reference_snapshot,
+        deactivate_node,
+        deactivated_int,
+        overwrite=True,
+    ):
         if not deactivated_int:
-            bf_fork_snapshot(base_snapshot,
-                             reference_snapshot,
-                             deactivate_nodes=deactivate_node,
-                             overwrite=overwrite)
+            bf_fork_snapshot(
+                base_snapshot,
+                reference_snapshot,
+                deactivate_nodes=deactivate_node,
+                overwrite=overwrite,
+            )
         else:
-            bf_fork_snapshot(base_snapshot,
-                             reference_snapshot,
-                             deactivate_interfaces=[
-                                 Interface(deactivate_node[0],
-                                           deactivated_int[0])
-                             ],
-                             overwrite=overwrite)
+            bf_fork_snapshot(
+                base_snapshot,
+                reference_snapshot,
+                deactivate_interfaces=[
+                    Interface(deactivate_node[0], deactivated_int[0])
+                ],
+                overwrite=overwrite,
+            )
 
-
-
-    def compare_acls(self,orginal_acl, refactored_acl, original_paltform, refactored_platform):
-        original_snapshot = bf_session.init_snapshot_from_text(orginal_acl,
-                                           platform=original_paltform,
-                                           snapshot_name="original",
-                                           overwrite=True)
-        refactored_snapshot = bf_session.init_snapshot_from_text(refactored_acl,
-                                           platform=refactored_platform,
-                                           snapshot_name="refactored",
-                                           overwrite=True)
-        result = bfq.compareFilters().answer(snapshot=refactored_snapshot, reference_snapshot=original_snapshot).frame()
+    def compare_acls(
+        self, orginal_acl, refactored_acl, original_paltform, refactored_platform
+    ):
+        original_snapshot = bf_session.init_snapshot_from_text(
+            orginal_acl,
+            platform=original_paltform,
+            snapshot_name="original",
+            overwrite=True,
+        )
+        refactored_snapshot = bf_session.init_snapshot_from_text(
+            refactored_acl,
+            platform=refactored_platform,
+            snapshot_name="refactored",
+            overwrite=True,
+        )
+        result = (
+            bfq.compareFilters()
+            .answer(snapshot=refactored_snapshot, reference_snapshot=original_snapshot)
+            .frame()
+        )
         result.rename(
-            columns={'Line_Content': 'Refactored ACL Line', 'Reference_Line_Content': 'Original ACL Line'},
-            inplace=True)
+            columns={
+                "Line_Content": "Refactored ACL Line",
+                "Reference_Line_Content": "Original ACL Line",
+            },
+            inplace=True,
+        )
         return result
 
-
     def get_question_description(self, question):
-        execute = 'bfq.' + question + '().get_long_description()'
+        execute = "bfq." + question + "().get_long_description()"
         result = eval(execute)
         return result
 

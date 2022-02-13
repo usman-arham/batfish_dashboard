@@ -5,7 +5,7 @@ services:
             - TZ=Asia/Riyadh
         ports:
             - "8050:8050"
-        container_name: batfish_dashboard
-        image: batfish_dashboard
+        container_name: batfish_dashboard_custom
+        image: batfish_dashboard_custom
         volumes:
             - ./:/app:z
