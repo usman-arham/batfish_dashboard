@@ -74,9 +74,34 @@ details>summary {
 }
 
 .modal .fade {
-    opacity: 1;
+    opacity: 1 !important;
 }
 
 .mt-20 {
     margin-top: 20px;
+}
+
+.row-0,
+.row-1 {
+    overflow: scroll;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.dash-spreadsheet-menu {
+    padding: 10px 10px;
+}
+
+.dash-spreadsheet-menu>div {
+    width: 100%;
+}
+
+.dash-spreadsheet-menu>div>button {
+    float: right;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td,
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th,
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner input:not([type=radio]):not([type=checkbox]) {
+    text-align: left !important;
 }

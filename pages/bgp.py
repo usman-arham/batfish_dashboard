@@ -32,11 +32,108 @@ layout = dcc.Loading(
         ),
         html.Div(
             className="content",
+            id="nonetworksnapshotalert",
+            children=[
+                html.Div(
+                    className="alert alert-info alert-dismissible",
+                    children=[
+                        html.Button(
+                            className="close",
+                            **{"data-dismiss": "alert"},
+                            **{"aria-hidden": "true"},
+                            children=["×"]
+                        ),
+                        html.H4(
+                            className="",
+                            children=[
+                                html.I(className="icon fa fa-info", children=[]),
+                                "Info!",
+                            ],
+                        ),
+                        "Select Network and Snapshot!!!",
+                    ],
+                )
+            ],
+        ),
+        html.Div(
+            className="content",
+            id="contentid",
+            style={"display": "none"},
             children=[
                 html.Div(
                     className="row",
+                    children=[
+                        html.Div(
+                            className="col-md-4 col-sm-6 col-xs-12",
+                            children=[
+                                html.Div(
+                                    className="info-box",
+                                    children=[
+                                        html.Span(
+                                            className="info-box-icon bg-green",
+                                            children=[
+                                                html.I(
+                                                    className="fa fa-network-wired",
+                                                    children=[],
+                                                )
+                                            ],
+                                        ),
+                                        html.Div(
+                                            className="info-box-content",
+                                            children=[
+                                                html.Span(
+                                                    className="info-box-text",
+                                                    children=["Network"],
+                                                ),
+                                                html.Span(
+                                                    className="info-box-number",
+                                                    id="selectedNetwork",
+                                                    children=["Selected Network"],
+                                                ),
+                                            ],
+                                        ),
+                                    ],
+                                )
+                            ],
+                        ),
+                        html.Div(
+                            className="col-md-4 col-sm-6 col-xs-12",
+                            children=[
+                                html.Div(
+                                    className="info-box",
+                                    children=[
+                                        html.Span(
+                                            className="info-box-icon bg-aqua",
+                                            children=[
+                                                html.I(
+                                                    className="fa fa-camera",
+                                                    children=[],
+                                                )
+                                            ],
+                                        ),
+                                        html.Div(
+                                            className="info-box-content",
+                                            children=[
+                                                html.Span(
+                                                    className="info-box-text",
+                                                    children=["Snapshot"],
+                                                ),
+                                                html.Span(
+                                                    className="info-box-number",
+                                                    id="selectedSnapshot",
+                                                    children=["Selected snapshot"],
+                                                ),
+                                            ],
+                                        ),
+                                    ],
+                                )
+                            ],
+                        ),
+                    ],
+                ),
+                html.Div(
+                    className="row",
                     id="bgp_graph_container",
-                    style={"display": "none"},
                     children=[
                         html.Div(
                             className="col-md-12",
@@ -121,12 +218,12 @@ def set_update_tab_content(snapshot_value, host_value, network_value):
     return get_bgp_graph(batfish.get_bgp_edges)
 
 
-@app.callback(
-    Output(component_id="bgp_graph_container", component_property="style"),
-    [Input("select-snapshot-button", "value")],
-)
-def show_hide_element(snapshot_value):
-    style = {"display": "block"}
-    if not snapshot_value:
-        style = {"display": "none"}
-    return style
+# @app.callback(
+#     Output(component_id="bgp_graph_container", component_property="style"),
+#     [Input("select-snapshot-button", "value")],
+# )
+# def show_hide_element(snapshot_value):
+#     style = {"display": "block"}
+#     if not snapshot_value:
+#         style = {"display": "none"}
+#     return style

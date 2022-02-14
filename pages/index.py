@@ -204,7 +204,7 @@ layout = html.Div(
                                                 html.I(
                                                     className="fa fa-line-chart",
                                                 ),
-                                                html.Span(children=["Graphs"]),
+                                                html.Span(children=[" Graphs"]),
                                                 html.Span(
                                                     className="pull-right-container",
                                                     children=[
@@ -228,7 +228,7 @@ layout = html.Div(
                                                                     className="fa fa-circle-o",
                                                                 ),
                                                                 html.Span(
-                                                                    children=["L3VPN"]
+                                                                    children=[" L3VPN"]
                                                                 ),
                                                             ],
                                                         ),
@@ -243,7 +243,7 @@ layout = html.Div(
                                                                     className="fa fa-circle-o",
                                                                 ),
                                                                 html.Span(
-                                                                    children=["BGP"]
+                                                                    children=[" BGP"]
                                                                 ),
                                                             ],
                                                         ),
@@ -258,7 +258,7 @@ layout = html.Div(
                                                                     className="fa fa-circle-o",
                                                                 ),
                                                                 html.Span(
-                                                                    children=["OSPF"]
+                                                                    children=[" OSPF"]
                                                                 ),
                                                             ],
                                                         ),
@@ -273,7 +273,7 @@ layout = html.Div(
                                                                     className="fa fa-circle-o",
                                                                 ),
                                                                 html.Span(
-                                                                    children=["ISIS"]
+                                                                    children=[" ISIS"]
                                                                 ),
                                                             ],
                                                         ),
@@ -291,7 +291,7 @@ layout = html.Div(
                                                 html.I(
                                                     className="fa fa-share",
                                                 ),
-                                                html.Span(children=["Trace Route"]),
+                                                html.Span(children=[" Trace Route"]),
                                             ],
                                         )
                                     ]
@@ -304,7 +304,7 @@ layout = html.Div(
                                                 html.I(
                                                     className="fa fa-question",
                                                 ),
-                                                html.Span(children=["Questions"]),
+                                                html.Span(children=[" Questions"]),
                                             ],
                                         )
                                     ]
@@ -376,3 +376,20 @@ def set_batfish_snapshot(host_value, network_value):
         for snapshot in batfish.get_existing_snapshots()
     ]
     return options
+
+
+@app.callback(
+    [
+        Output(component_id="nonetworksnapshotalert", component_property="style"),
+        Output(component_id="contentid", component_property="style"),
+        Output("selectedNetwork", "children"),
+        Output("selectedSnapshot", "children"),
+    ],
+    [Input("select-snapshot-button", "value"), Input("select-network-button", "value")],
+)
+def set_batfish_snapshot(snapshot_value, network_value):
+    if not snapshot_value:
+        raise PreventUpdate
+    if not network_value:
+        raise PreventUpdate
+    return {"display": "none"}, {"display": "block"}, network_value, snapshot_value
