@@ -28,15 +28,15 @@ layout = html.Div(
                         html.Span(
                             className="logo-mini",
                             children=[
-                                html.B("A"),
-                                "LT",
+                                html.B("N"),
+                                "DO",
                             ],
                         ),
                         html.Span(
                             className="logo-lg",
                             children=[
-                                html.B("Admin"),
-                                "LTE",
+                                html.B("Net"),
+                                "DevOps",
                             ],
                         ),
                     ],
@@ -71,10 +71,19 @@ layout = html.Div(
                                                     **{"data-toggle": "dropdown"},
                                                     **{"aria-expanded": "false"},
                                                     children=[
-                                                        html.Img(
-                                                            className="user-image",
-                                                            alt="User Image",
-                                                            src="assets/img/user2-160x160.jpg",
+                                                        html.Span(
+                                                            className="fa-stack fa-1x",
+                                                            children=[
+                                                                html.I(
+                                                                    className="fas fa-circle fa-stack-2x"
+                                                                ),
+                                                                html.I(
+                                                                    className="fas fa-user fa-stack-1x ",
+                                                                    style={
+                                                                        "color": "#3c8dbc"
+                                                                    },
+                                                                ),
+                                                            ],
                                                         ),
                                                         html.Span(
                                                             className="hidden-xs",
@@ -88,10 +97,22 @@ layout = html.Div(
                                                         html.Li(
                                                             className="user-header",
                                                             children=[
-                                                                html.Img(
-                                                                    className="img-circle",
-                                                                    alt="User Image",
-                                                                    src="assets/img/user2-160x160.jpg",
+                                                                html.Span(
+                                                                    className="fa-stack fa-3x",
+                                                                    children=[
+                                                                        html.I(
+                                                                            className="fas fa-circle fa-stack-2x",
+                                                                            style={
+                                                                                "color": "#f6f6f6"
+                                                                            },
+                                                                        ),
+                                                                        html.I(
+                                                                            className="fas fa-user fa-stack-1x",
+                                                                            style={
+                                                                                "color": "#3c8dbc"
+                                                                            },
+                                                                        ),
+                                                                    ],
                                                                 ),
                                                                 html.P(
                                                                     children=[
@@ -140,11 +161,20 @@ layout = html.Div(
                                 html.Div(
                                     className="pull-left image",
                                     children=[
-                                        html.Img(
-                                            className="img-circle",
-                                            src="assets/img/user2-160x160.jpg",
-                                            alt="User Image",
-                                        )
+                                        html.Span(
+                                            className="fa-stack fa-2x",
+                                            style={"fontSize": "25px"},
+                                            children=[
+                                                html.I(
+                                                    className="fas fa-circle fa-stack-2x",
+                                                    style={"color": "#3c8dbc"},
+                                                ),
+                                                html.I(
+                                                    className="fas fa-user fa-stack-1x",
+                                                    style={"color": "#f6f6f6"},
+                                                ),
+                                            ],
+                                        ),
                                     ],
                                 ),
                                 html.Div(

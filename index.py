@@ -15,6 +15,9 @@ app.index_string = """
         {%metas%}
         <title>{%title%}</title>
         {%favicon%}
+        <script>
+                FontAwesomeConfig = { autoReplaceSvg: false }
+        </script>
         {%css%}
         <!-- Google Font -->
         <link rel="stylesheet"
@@ -26,6 +29,7 @@ app.index_string = """
             {%config%}
             {%scripts%}
             {%renderer%}
+            
         </footer>
     </body>
 </html>
