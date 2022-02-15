@@ -155,44 +155,44 @@ layout = html.Div(
                 html.Section(
                     className="sidebar",
                     children=[
-                        html.Div(
-                            className="user-panel",
-                            children=[
-                                html.Div(
-                                    className="pull-left image",
-                                    children=[
-                                        html.Span(
-                                            className="fa-stack fa-2x",
-                                            style={"fontSize": "25px"},
-                                            children=[
-                                                html.I(
-                                                    className="fas fa-circle fa-stack-2x",
-                                                    style={"color": "#3c8dbc"},
-                                                ),
-                                                html.I(
-                                                    className="fas fa-user fa-stack-1x",
-                                                    style={"color": "#f6f6f6"},
-                                                ),
-                                            ],
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="pull-left info",
-                                    children=[
-                                        html.P(children=["Muhammad Usman"]),
-                                        html.A(
-                                            children=[
-                                                html.I(
-                                                    className="fa fa-circle text-success",
-                                                ),
-                                                " Online",
-                                            ],
-                                        ),
-                                    ],
-                                ),
-                            ],
-                        ),
+                        # html.Div(
+                        #     className="user-panel",
+                        #     children=[
+                        #         html.Div(
+                        #             className="pull-left image",
+                        #             children=[
+                        #                 html.Span(
+                        #                     className="fa-stack fa-2x ",
+                        #                     style={"fontSize": "25px"},
+                        #                     children=[
+                        #                         html.I(
+                        #                             className="fas fa-circle fa-stack-2x",
+                        #                             style={"color": "#3c8dbc"},
+                        #                         ),
+                        #                         html.I(
+                        #                             className="fas fa-user fa-stack-1x",
+                        #                             style={"color": "#f6f6f6"},
+                        #                         ),
+                        #                     ],
+                        #                 ),
+                        #             ],
+                        #         ),
+                        #         html.Div(
+                        #             className="pull-left info",
+                        #             children=[
+                        #                 html.P(children=["Muhammad Usman"]),
+                        #                 html.A(
+                        #                     children=[
+                        #                         html.I(
+                        #                             className="fa fa-circle text-success",
+                        #                         ),
+                        #                         " Online",
+                        #                     ],
+                        #                 ),
+                        #             ],
+                        #         ),
+                        #     ],
+                        # ),
                         html.Form(
                             className="sidebar-form",
                             children=[
