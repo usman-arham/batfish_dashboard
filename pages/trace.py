@@ -50,6 +50,18 @@ layout = (
                     )
                 ],
             ),
+            # html.Div(
+            #     className="col-md-2",
+            #     children=[
+            #         html.Div(
+            #             dbc.Button(
+            #                 "Change Configuration?",
+            #                 id="chaos_traceroute_change_config_button",
+            #                 className="btn btn-info mt-20",
+            #             )
+            #         ),
+            #     ],
+            # ),
             html.Div(
                 className="content",
                 id="contentid",
@@ -596,7 +608,14 @@ layout = (
                                                                                         id="chaos_traceroute_submit",
                                                                                         className="btn btn-primary pull-right",
                                                                                         disabled=False,
-                                                                                    )
+                                                                                    ),
+                                                                                    daq.BooleanSwitch(
+                                                                                        id="change_configuration_switch",
+                                                                                        on=False,
+                                                                                        style={
+                                                                                            "display": "none"
+                                                                                        },
+                                                                                    ),
                                                                                 ],
                                                                             ),
                                                                         ],
@@ -697,10 +716,25 @@ layout = (
     # Change Configuration Modal
     dbc.Modal(
         id="change_configuration_modal",
-        size="xl",
-        scrollable=True,
+        is_open=False,  # Open the modal at opening the webpage.
+        size="lg",  # "sm", "lg", "xl" = small, large or extra large
+        backdrop=True,  # Modal to not be closed by clicking on backdrop
+        scrollable=True,  # Scrollable in case of large amount of text
+        centered=False,  # Vertically center modal
+        keyboard=True,  # Close modal when escape is pressed
+        fade=True,  # Let the modal fade instead of appear.
         children=[
-            dbc.ModalHeader("Change Configuration!"),
+            html.Div(
+                className="modal-header",
+                children=[
+                    html.H5(className="modal-title", children=["Change Configuration"]),
+                    html.Button(
+                        className="close",
+                        id="close2",
+                        children=[html.Span(children=["×"])],
+                    ),
+                ],
+            ),
             dbc.ModalBody(
                 children=[
                     html.Div(
@@ -712,22 +746,22 @@ layout = (
                             ),
                         ],
                     ),
-                    dbc.ModalFooter(
-                        [
-                            dbc.Button(
-                                "Close",
-                                id="close",
-                                className="ms-auto btn-danger",
-                                n_clicks=0,
-                            ),
-                            dbc.Button(
-                                "Submit",
-                                id="change_configuration_submit",
-                                className="ms-auto btn-primary",
-                            ),
-                        ]
-                    ),
                 ],
+            ),
+            dbc.ModalFooter(
+                [
+                    dbc.Button(
+                        "Close",
+                        id="close1",
+                        className="ms-auto btn-danger",
+                        n_clicks=0,
+                    ),
+                    dbc.Button(
+                        "Submit",
+                        id="change_configuration_submit",
+                        className="ms-auto btn-primary",
+                    ),
+                ]
             ),
         ],
     ),

@@ -76,7 +76,7 @@ class Batfish:
         return snapshotlist
 
     def init_snapshot(self, snapshot_name, overwrite=True):
-        snapshot_dir = "assets/snapshot_holder/"
+        snapshot_dir = "snapshot_holder/"
         bf_init_snapshot(snapshot_dir, name=str(snapshot_name), overwrite=overwrite)
 
     def get_info(self, command):

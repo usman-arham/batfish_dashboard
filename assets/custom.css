@@ -69,11 +69,8 @@ details>summary {
     font-weight: bold;
 }
 
-.modal-backdrop.fade {
-    opacity: 0.5;
-}
 
-.modal .fade {
+.modal {
     opacity: 1 !important;
 }
 

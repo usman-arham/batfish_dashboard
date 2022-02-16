@@ -6,6 +6,6 @@ services:
         ports:
             - "8050:8050"
         container_name: batfish_dashboard_custom
-        image: batfish_dashboard_custom
+        image: batfish_dashboard_custom:v1
         volumes:
             - ./:/app:z

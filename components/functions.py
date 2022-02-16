@@ -563,7 +563,7 @@ def save_file(config_type, name, content):
 
 def delete_old_files():
     try:
-        for subdir, dirs, files in os.walk(r"assets\snapshot_holder"):
+        for subdir, dirs, files in os.walk(r"snapshot_holder"):
             for file in files:
                 filePath = os.path.join(subdir, file)
                 os.unlink(filePath)

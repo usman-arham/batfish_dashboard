@@ -5,6 +5,7 @@ from dash.exceptions import PreventUpdate
 import dash_core_components as dcc
 import dash
 from components.functions import get_traceroute_details
+from components.functions import delete_old_files
 
 
 # write batfish interface of a snapshot to memory
@@ -306,7 +307,7 @@ def display_interfaces_for_node(
         # Input("traceroute_ip_protocols", "value"),
     ],
     [
-        # State("change_configuration_switch", "on"),
+        State("change_configuration_switch", "on"),
         State("batfish_host_input", "value"),
         State("select-network-button", "value"),
         State("select-snapshot-button", "value"),
@@ -323,7 +324,7 @@ def set_chaos_trace_graph(
     # dst_ports,
     # applications,
     # ip_protocols,
-    # change_configuration_switch,
+    change_configuration_switch,
     host_value,
     network_value,
     snapshot_value,
@@ -344,20 +345,20 @@ def set_chaos_trace_graph(
     batfish.set_network(network_value)
 
     bidir = False
-    # if change_configuration_switch:
-    #     reference_snapshot = snapshot_value + "_CHANGED"
-    #     batfish.init_snapshot(reference_snapshot)
-    # else:
-    reference_snapshot = snapshot_value + "_FAIL"
-    deactivated_nodes.append(choose_node)
-    if not deactivate_node:
-        deactivated_interfaces.append(deactivated_interface)
-    batfish.network_failure(
-        snapshot_value,
-        reference_snapshot,
-        deactivated_nodes,
-        deactivated_interfaces,
-    )
+    if change_configuration_switch:
+        reference_snapshot = snapshot_value + "_CHANGED"
+        batfish.init_snapshot(reference_snapshot)
+    else:
+        reference_snapshot = snapshot_value + "_FAIL"
+        deactivated_nodes.append(choose_node)
+        if not deactivate_node:
+            deactivated_interfaces.append(deactivated_interface)
+        batfish.network_failure(
+            snapshot_value,
+            reference_snapshot,
+            deactivated_nodes,
+            deactivated_interfaces,
+        )
 
     result = batfish.traceroute(
         source,
@@ -372,7 +373,7 @@ def set_chaos_trace_graph(
     chaos_flow_details = get_traceroute_details("forward", result, False, True)
     chaos_flow_graph = chaos_flow_details[0]
     chaos_flow_traces = chaos_flow_details[1]
-    # delete_old_files()
+    delete_old_files()
     style = {"display": "block"}
     return style, chaos_flow_graph, chaos_flow_traces
 
@@ -407,10 +408,61 @@ def get_change_configuration(
 
 @app.callback(
     Output("change_configuration_modal", "is_open"),
-    [Input("chaos_traceroute_change_config_button", "n_clicks")],
+    [
+        Input("chaos_traceroute_change_config_button", "n_clicks"),
+        Input("close1", "n_clicks"),
+        Input("close2", "n_clicks"),
+        Input("change_configuration_submit", "n_clicks"),
+    ],
     [State("change_configuration_modal", "is_open")],
 )
-def open_change_configuration_modal(n, is_open):
-    if n:
+def open_change_configuration_modal(n1, n2, n3, n4, is_open):
+    if n1 or n2 or n3:
         return not is_open
+    if n4:
+        return False
     return is_open
+
+
+@app.callback(
+    Output("change_configuration_switch", "on"),
+    [
+        Input("change_configuration_textarea", "value"),
+        Input("change_configuration_submit", "n_clicks"),
+    ],
+    [
+        State("traceroute_choose_node", "value"),
+        State("batfish_host_input", "value"),
+        State("select-network-button", "value"),
+        State("select-snapshot-button", "value"),
+    ],
+)
+def set_change_configuration(
+    changed_configuration,
+    changed_configuration_submit,
+    choose_node,
+    batfish_host,
+    batfish_network,
+    batfish_snapshot,
+):
+    ctx = dash.callback_context
+    button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    if button_id not in ["change_configuration_submit"]:
+        raise PreventUpdate
+
+    batfish = Batfish(batfish_host)
+    batfish.set_network(batfish_network)
+    batfish.set_snapshot(batfish_snapshot)
+
+    with open(r"snapshot_holder/configs/" + choose_node + ".txt", "w") as f:
+        f.write(changed_configuration)
+
+    nodes_df = batfish.get_info("fileParseStatus")
+    for key, value in nodes_df.iterrows():
+        if choose_node.lower() not in value["Nodes"]:
+            with open(
+                r"snapshot_holder/configs/" + value["Nodes"][0] + ".txt", "w"
+            ) as f:
+                f.write(batfish.get_configuration(value["File_Name"], batfish_snapshot))
+    return True
