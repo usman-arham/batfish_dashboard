@@ -398,7 +398,7 @@ def get_batfish_networks(n, value):
 )
 def set_batfish_snapshot(host_value, network_value):
     if not network_value:
-        raise PreventUpdate
+        return []
     batfish = Batfish(host_value)
     batfish.set_network(network_value)
     options = [
@@ -418,8 +418,6 @@ def set_batfish_snapshot(host_value, network_value):
     [Input("select-snapshot-button", "value"), Input("select-network-button", "value")],
 )
 def set_batfish_snapshot(snapshot_value, network_value):
-    if not snapshot_value:
-        raise PreventUpdate
-    if not network_value:
-        raise PreventUpdate
+    if not snapshot_value or not network_value:
+        return {"display": "block"}, {"display": "none"}, network_value, snapshot_value
     return {"display": "none"}, {"display": "block"}, network_value, snapshot_value
