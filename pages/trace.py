@@ -555,6 +555,7 @@ layout = (
                                                                                         id="deactivate_node_switch",
                                                                                         on=False,
                                                                                         label="Deactivate Node",
+                                                                                        disabled=True,
                                                                                     ),
                                                                                 ],
                                                                             ),
@@ -576,6 +577,7 @@ layout = (
                                                                                     dcc.Dropdown(
                                                                                         id="traceroute_deactivate_interface",
                                                                                         placeholder="Select Interface",
+                                                                                        disabled=True,
                                                                                     ),
                                                                                 ],
                                                                             )
@@ -589,6 +591,7 @@ layout = (
                                                                                     "Change Configuration?",
                                                                                     id="chaos_traceroute_change_config_button",
                                                                                     className="btn btn-info mt-20",
+                                                                                    disabled=True,
                                                                                 )
                                                                             ),
                                                                         ],

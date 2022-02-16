@@ -185,6 +185,22 @@ def set_update_trace_graph(
 
 
 # ************************* Chaos Callbacks *************************
+@app.callback(
+    [
+        Output("deactivate_node_switch", "disabled"),
+        Output("traceroute_deactivate_interface", "disabled"),
+        Output("chaos_traceroute_change_config_button", "disabled"),
+    ],
+    [
+        Input("traceroute_choose_node", "value"),
+    ],
+)
+def enable_buttons(
+    node,
+):
+    if not node:
+        return True, True, True
+    return False, False, False
 
 
 @app.callback(
